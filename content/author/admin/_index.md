@@ -55,6 +55,11 @@ user_groups = []
   link = "https://github.com/yungshenglu"
 
 [[social]]
+  icon = "linkedin"
+  icon_pack = "fab"
+  link = "https://www.linkedin.com/in/yungshenglu/"
+
+[[social]]
   icon = "twitter"
   icon_pack = "fab"
   link = "https://twitter.com/yungshenglu"
