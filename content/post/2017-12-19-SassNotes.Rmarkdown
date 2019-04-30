@@ -1,0 +1,231 @@
+---
+title      : "Sass 學習雜記 - Part 1. 簡介"
+subtitle   : "Web Programming Notes"
+date       : 2017-12-19 12:00:00
+author     : "David Lu"
+tags       : Sass WebProgramming
+comments   : true
+signature  : true
+slides     : 
+present    : 
+github     :
+link       :
+---
+
+![Sass](https://i.imgur.com/7vx71Hx.png)
+
+## Part 1. 簡介
+
+> 關於 Sass 的學習，建議先對 **CSS** 已經有一定熟識程度，再學習 Sass 效果會更佳。
+
+### 1.1 何謂 Sass/SCSS ？
+
+* Sass/SCSS v.s. CSS
+    * Sass 可以提升撰寫 CSS 的效率，但礙於學習門檻有一點高，因此仍未普及化。對於前端開發人員，想必都遇過以下情況：
+        * 當 CSS 愈寫愈多時，不論是在開發或是維護，需要時常 (甚至頻繁) 查找程式碼，相當麻煩。
+        * 對於要填入相同的 CSS 變數值 (以顏色為例)，需要重複填入相同的變數值，如果要改，也必須逐一取代。
+        * 在排版的時候，時常要使用計算機計算每個元件之間寬度、間距等。
+        * (不勝枚舉...)
+    * 對於以上問題，Sass 都可以迎刃而解，有點類似自己建立的一套模板庫，日後只需要引用進來即可。
+    * 如果你有撰寫過 CSS，你應該知道 CSS 和其他程式語言很不一樣，沒有變數、條件、迴圈等的觀的念，只能逐行編輯檢驗，在開發上需要花費相當大的心力，更別提在維護了。一旦要修正的地方很多時，也只能逐行去修正，那會是另一場惡夢。
+        * CSS 前處理器 (preprocessor) 概念的提出，是讓我們在開發 CSS 時能夠更「程式化 (programmable)」，除了以下要介紹的 Sass 外，還有 Less 和 Stylus 也有相同的概念。
+* 關於 Sass/SCSS
+    * Sass 全名爲 Syntactically Awesome StyleSheets，是一種 **CSS 的擴充語言** ，即為 **CSS 的超集合** 。
+    * Sass 能解決 CSS 常見的「重複撰寫」以及「維護困難」等問題，讓原本的 CSS 語法更簡潔、更富語意、可維護性與可延展性佳。
+    * Sass 的語法分爲舊的 SASS 與新的 SCSS。
+        * SASS：
+            * 向 `HAML` 取經，具備*不使用大括弧*、使用*縮排*，不能直接使用 CSS 語法。
+            * 檔案名稱爲 `*.sass`。
+                ```sass
+                .header
+                    height: 80px
+                    .logo
+                        position: relative
+                        a
+                            display: block
+                            &:hover
+                                color: red
+                    .menu
+                        width: 500px
+                ```
+        * SCSS：
+            * 又稱為 `Sassy CSS`, `Sass 3`。
+            * 檔案名稱爲 `*.scss`。
+                ```scss
+                .header {
+                    height: 80px;
+                    .logo {
+                        position: relative;
+                        a {
+                            display: block;
+                            &:hover {
+                                color: red;
+                            }
+                        }
+                    }
+                    .menu {
+                        width: 500px;
+                    }
+                }
+                ```
+    * 由於 SCSS 語法爲 CSS3 的擴充，所以傳統 CSS3 檔案就算直接複製過來也不會出錯，學習曲線相對較緩，因此以下使用 SCSS 語法。
+
+> **補充**
+> * [輕量的標籤語言 HAML](http://ithelp.ithome.com.tw/articles/10128441)
+> * [What's the difference between SCSS and Sass?
+](http://stackoverflow.com/questions/5654447/whats-the-difference-between-scss-and-sass)
+
+---
+### 1.2 開始 Sass/SCSS
+
+在開始介紹 Sass/SCSS 特性之前，我們先來學習如何將 Sass/SCSS 轉譯成 CSS。
+
+#### 1.2.1 安裝 Sass
+
+* **安裝 Ruby**
+    * **Linux**
+        * 請務必先安裝 **Ruby**。
+            ```bash
+            $ sudo apt-get install ruby
+            ```
+        * 安裝完畢 Ruby 後，請安裝 **RubyGems** (Ruby 上常使用的 Package Management 應用程式)。
+            ```bash
+            $ sudo apt-get install rubygems
+            ```
+        * 安裝完畢以上後，即可透過 `gem` 安裝 **Sass**。
+            ```bash
+            $ sudo su -c "gem install sass"
+            ```
+    * **Mac OS**
+        * Mac OS 10.5 和更新版本的 Mac OS X 已经安装 Ruby 和 RubyGems。如果使用的是早期版本的 Mac OS，請下載並安裝最新版本的 Ruby 和 RubyGems.
+            ```bash
+            $ brew install ruby
+            ```
+    * **Windows**
+        * 請先務必安裝 **Ruby**。
+
+            > **提示**
+            > * 建議使用 [Ruby Installer](http://rubyinstaller.org/) 安裝 Ruby。
+            > * Ruby Installer 會將 Ruby command line powershell 與 Ruby 函式庫一併安裝。
+
+        * 安裝完畢 Ruby 後，開啓 Ruby command line powershell 安裝 Sass (請參考以下 **建議步驟**)。
+    * **NPM (Node.js)**
+        * 如果使用 Node.js 可以透過 [NPM](https://www.npmjs.com/) 安裝 Sass。
+            ```bash
+            $ npm install -g sass
+            ```
+        * 這個安裝方式會比其他安裝方式的執行速度慢，且在編譯過後不會生成 `main.css.map`。
+* 建議步驟
+    * 開啓終端機 (Terminal) 或 Command Prompt。
+    * 安裝 Sass
+        ```bash
+        # 以下二種擇一安裝即可。
+        $ gem install sass
+        $ sudo gem install sass
+        ```
+        > **提示**
+        > * Ruby 透過 **`Gems`** 管理各種不同的套件
+    * 確認版本
+        * 安裝完畢後，可以輸入以下指令確認安裝的版本。
+            ```bash
+            $ sass -v
+            ```
+        * 若安裝成功，會顯示以下訊息。
+            ```bash
+            Sass 3.4.22 (Selective Steve)
+            ```
+    > **提示**
+    > * [Sass 官方安裝說明](http://sass-lang.com/install)
+            
+#### 1.2.2 編譯 Sass/SCSS
+
+* Sass/SCSS 和 CSS 不同，無法透過瀏覽器直譯，因此在使用前必須將 Sass/SCSS 編譯成 CSS。以下為簡單的 Sass/SCSS 範例，基本語法和 CSS 相同，檔名要命名為 `*.scss`，我們以 `main.scss` 作命名為例：
+    ```scss
+    /* File name: main.scss */
+    h1 {
+        font-size: 12px;
+        text-align: center;
+    }
+    .banner {
+        font-size: 20px;
+        height: 400px;
+        background-image: url("apple.jpg");
+    }
+    .container {
+        text-align: center;
+    }
+    ```
+* 如何將 Sass/SCSS 編譯成 CSS？
+    ```bash
+    $ sass main.scss main.css
+    $ sass main.scss ../css/main.css
+    ```
+    * 第一個參數 `main.scss` 爲 **輸入的檔案** ，亦即需要編譯的檔案。
+    * 第二個參數 `main.css` 爲 **輸出的檔案或位置** ，亦即編譯完成的檔案。
+* 若編譯成功，將會在指定的路徑看到兩個檔案，分別為 `main.css` 和 `main.css.map`，其中 `main.css` 是編譯過後的 CSS 檔案，而 `main.css.map` 是方便使用瀏覽器除錯工具除錯時連結原檔案和編譯檔案。
+
+---
+### 1.3 關於 Compass
+
+![](http://s148.photobucket.com/albums/s20/canwen/blog/compass-logo.png)
+
+Compass 是一套支援 Sass/SCSS 的強大工具，簡單來說，Compass 是一個 Sass/SCSS 的 Framework，原本在 Sass/SCSS 裡面要寫很多遍的樣式，Compass 都已經寫好了，再加一些常用的功能，並簡化了寫法，能提升不少開發的速度。
+
+* **安裝 Compass**：可以透過 RubyGems 安裝。
+    ```bash
+    # Update RubyGems
+    $ gem update --system
+    # Install Compass
+    $ gem install compass
+    ```
+* **開啟 Compass 專案**
+    安裝完畢後，可以透過 Compass 開啟一個 Sass/SCSS 專案。
+    ```bash
+    $ compass create ProjectName
+    ```
+* **監控 Sass/SCSS 更新**
+    若要在 Sass/SCSS 檔案更新時，系統直接編譯成 CSS 的話，需輸入以下字元進行監控動作。
+    ```bash
+    $ compass watch ProjectName
+    ```
+* **設定 `config.rb`**
+    * 若要 Sass/SCSS 編譯出來的 CSS 不要有註解，可以將根目錄的 `config.rb` 中的 `# line_comments = false` 前面的 `#` 移除，在編譯過後就不會產生出註解。
+    * 若要更改 Sass/SCSS 編譯過後存放 CSS 的路徑，在 `config.rb` 中，會看到以下預設的程式碼，可以將 `css_dir = "stylesheets"` 改為 `css_dir = "css"`，則之後編譯過後的 CSS 會存放在 `css` 這個資料夾下。
+    ```ruby
+    css_dir = "stylesheets"
+    sass_dir = "sass"
+    images_dir = "images"
+    javascripts_dir = "javascripts"
+    ```
+        * **注意：**當修改 `config.rb` 後，要重新 watch 新的資料夾名稱，設定才會生效。
+
+> **提示**
+> * [Compass 官方安裝說明](http://compass-style.org/install/)
+> * [CSS沒有極限 - Sass 與 Compass(1)](http://ithelp.ithome.com.tw/question/10127659?tag=ithome.nq)
+> * [用 Compass 取代 CSS，寫個 html 專案：](http://www.mukispace.com/compass-for-html-code-project/)
+
+---
+## References
+
+* [Sass TutorialsPoint](https://www.tutorialspoint.com/sass/index.htm)
+* [Sass/SCSS 簡明入門教學](http://blog.kdchang.cc/2016/10/11/sass-scss-tutorial-introduction/)
+* [SCSS 15分鐘入門](http://eddychang.me/blog/others/91-scss-15-mins.html)
+* [Codecademy - Learn Sass](https://www.codecademy.com/learn/learn-sass)
+
+---
+## 【Sass 學習雜記】系列
+
+* [Sass 學習雜記 - Part 1. 簡介](https://yungshenglu.github.io/2017/12/19/SassNotes1/)
+* [Sass 學習雜記 - Part 2. 變數表示](https://yungshenglu.github.io/2017/12/20/SassNotes2/)
+* [Sass 學習雜記 - Part 3. 巢狀表示](https://yungshenglu.github.io/2017/12/21/SassNotes3/)
+* [Sass 學習雜記 - Part 4. 組合表示](https://yungshenglu.github.io/2017/12/22/SassNotes4/)
+* [Sass 學習雜記 - Part 5. 函式與運算](https://yungshenglu.github.io/2017/12/23/SassNotes5/)
+* [Sass 學習雜記 - Part 6. 條件與迴圈](https://yungshenglu.github.io/2017/12/24/SassNotes6/)
+* [Sass 學習雜記 - Part 7. 常見的編譯錯誤](https://yungshenglu.github.io/2017/12/24/SassNotes7/)
+* [Sass 學習雜記 - Part 8. 開發架構與檔案切割](https://yungshenglu.github.io/2017/12/25/SassNotes8/)
+* [Sass 學習雜記 - Part 9. 合併樣式](https://yungshenglu.github.io/2017/12/26/SassNotes9/)
+* [Sass 學習雜記 - A1. 數學函式](https://yungshenglu.github.io/2018/04/30/SassNotesA1/)
+* [Sass 學習雜記 - A2. 顏色函式](https://yungshenglu.github.io/2018/04/30/SassNotesA2/)
+* [Sass 學習雜記 - A3. 字串函式](https://yungshenglu.github.io/2018/04/30/SassNotesA3/)
+
+> 如果你有任何建議與指教，歡迎於下方留言一起討論喔！
